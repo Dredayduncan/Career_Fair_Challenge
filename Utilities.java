@@ -34,16 +34,18 @@ public class Utilities {
         //Loop through the entire file to populate the hashtable with the respective information
         while (populationData.hasNextLine()) {
             String data = populationData.nextLine();
-            String[] row = data.split(",");
+            String[] row = data.split(","); //Split each row using the commas
             Country country = new Country(row[0], Integer.parseInt(row[2]));
             countries.put(country.getName(), country);
         }
 
+
         while (infectionCases.hasNextLine()){
             String data = infectionCases.nextLine();
-            String[] row = data.split(",");
-            
+            String[] row = data.split(","); //Split each row using the commas
 
+            //add each infection case to the country they belong to.
+            countries.get(row[1]).addInfection(row[0], row[2], row[3]);
         }
 
     }

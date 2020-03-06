@@ -59,17 +59,18 @@ public class Utilities {
      * @return The country with the highest infection count
      */
     public Country getHighestInfection() {
-    	Country highest=null;
-    	for (Country country : countries.values()) {
-			if (highest==null) {
-				highest=country;
-			}else {
-				if (highest.getInfectionCount() < country.getInfectionCount()){
-					highest = country;
-				}
-			}
-		}
-    	return highest;
+        Country highest = null;
+        for (Country country : countries.values()) {
+            if (highest == null) {
+                highest = country;
+            } else {
+                if (highest.getInfectionCount() < country.getInfectionCount()) {
+                    highest = country;
+                }
+            }
+        }
+        return highest;
+    }
 
     /**
      *
@@ -134,6 +135,7 @@ public class Utilities {
         }
         return countryWithHighestInfectionRate;
     }
+
 
 
 }

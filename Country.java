@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Country {
 	String name;
-	ArrayList<InfectionCase> infections;
+	ArrayList<InfectionCase> infections = new ArrayList<>();
 	int population;
 	int count;
 	int deaths;
@@ -21,12 +21,19 @@ public class Country {
 		this.name = name;
 		this.population = population;
 		count = 0;
-		infections = new ArrayList<>();
 		deaths=0;
 	}
 
 	/**
-	 * Get tbe number of infections that occured in the country
+	 * Set the number of recorded infections
+	 * @param count Number of infections reported
+	 */
+	public void setInfectionCount(int count){
+		this.count = count;
+	}
+
+	/**
+	 * Get the number of infections that occured in the country
 	 * @return the number of infections
 	 */
 	public int getInfectionCount() {
@@ -66,6 +73,14 @@ public class Country {
 	}
 
 	/**
+	 * Set the number of recorded deaths
+	 * @param deaths Number of deaths reported
+	 */
+	public void setDeaths(int deaths) {
+		this.deaths = deaths;
+	}
+
+	/**
 	 * Add a day's infection cases count to the countries list of cases and count
 	 * @param infection An infection object which holds data on infection date, number of confirmed cases and deaths.
 	 */
@@ -80,6 +95,23 @@ public class Country {
 	 */
 	public int getFatalityCount() {
 		return deaths;
+	}
+
+	/**
+	 * Get the death rate of the country
+	 * @return Returns a decimal of the ratio of deaths to infections
+	 */
+	public double deathRate() {
+		return getFatalityCount()/getInfectionCount();
+
+	}
+
+	/**
+	 * Get the infection rate of the country
+	 * @return Returns a decimal of the ratio of infections to population
+	 */
+	public double infectionRate(){
+		return getInfectionCount()/getPopulation();
 	}
 
 }

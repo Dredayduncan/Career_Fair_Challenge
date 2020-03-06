@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Bryan Tetteh Ayertey
+ *
+ */
 package Career_Fair_Challenge;
 
 public class InfectionCase {
@@ -13,8 +18,9 @@ public class InfectionCase {
 	public InfectionCase(String dateRep, int newConfCases, int newDeaths) {
 		this.dateRep = dateRep;
 		this.newConfCases = newConfCases;
-		newDeaths = newDeaths;
+		this.newDeaths = newDeaths;
 	}
+
 	/**
 	 * Get the date of the infection case
 	 * @return The date of the infection case 
@@ -30,6 +36,7 @@ public class InfectionCase {
 	public void setDateRep(String dateRep) {
 		this.dateRep = dateRep;
 	}
+
 	/**
 	 * Get the number of infection cases at the given date
 	 * @return the number of infection cases
@@ -37,6 +44,7 @@ public class InfectionCase {
 	public int getNewConfCases() {
 		return newConfCases;
 	}
+
 	/**
 	 * Set the number of infection cases at the given date
 	 * @param newConfCases The number of cases to be set for the infection case
@@ -44,6 +52,7 @@ public class InfectionCase {
 	public void setNewConfCases(int newConfCases) {
 		this.newConfCases = newConfCases;
 	}
+
 	/**
 	 * Get the number of death from the virus cases at the given date
 	 * @return The number of death from the virus
@@ -51,6 +60,7 @@ public class InfectionCase {
 	public int getNewDeaths() {
 		return newDeaths;
 	}
+
 	/**
 	 * Set the number of death from the virus cases at the given date
 	 * @param newDeaths The number of deaths to be set for the infection case

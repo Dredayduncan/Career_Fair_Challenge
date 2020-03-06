@@ -13,12 +13,6 @@ public class Utilities {
     //Store the countries by their name and Country object in a hashtable
     private Hashtable<String, Country> countries = new Hashtable<>();
 
-    //Declare the necessary instance variables
-    private String countryWithHighestDeathRate;
-    private double highestDeathRate;
-    private String countryWithHighestInfectionRate;
-    private double highestInfectionRate;
-
     //Declare the variables for the input files
     Scanner populationData, infectionCases;
 
@@ -30,11 +24,6 @@ public class Utilities {
      * @throws FileNotFoundException
      */
     public Utilities(String countryData, String infectionData) throws FileNotFoundException {
-        //Initialize instance variables
-        countryWithHighestDeathRate = "";
-        highestDeathRate = 0;
-        countryWithHighestInfectionRate = "";
-        highestInfectionRate = 0;
 
         //Read the files
         populationData = new Scanner(new File(countryData));
@@ -68,20 +57,19 @@ public class Utilities {
 
     /**
      * This method produces the country with the highest death rate.
-     * @return Returns the name of the country with the highest death rate
+     * @return Returns a country object of the country with the highest death rate
      */
-    public String CountryWithHighestDeathRate(){
-        Set<String> keys = countries.keySet(); //Get all countries in the hashtable;
-        for (String key: keys){
-            if (countryWithHighestDeathRate.equals("")) //Check if the highest death rate country variable is empty
-                countryWithHighestDeathRate = key; //Make the first country the highest for further comparison.
+    public Country CountryWithHighestDeathRate(){
+        Country countryWithHighestDeathRate = null;
+
+        for (Country country: countries.values()){
+            if (countryWithHighestDeathRate == null) //Check if the highest death rate country variable is empty
+                countryWithHighestDeathRate = country; //Make the first country the highest for further comparison.
 
             //Check if the current country has a higher death rate that the set one and replace it if so.
-            else if (countries.get(key).deathRate() > countries.get(countryWithHighestDeathRate).deathRate()) {
-                countryWithHighestDeathRate = key; //Assign the name to be the country with the highest death rate
+            else if (countries.get(country).deathRate() > countries.get(countryWithHighestDeathRate).deathRate()) {
+                countryWithHighestDeathRate = country; //Assign the name to be the country with the highest death rate
 
-                //assign the value of the death rate
-                highestDeathRate = countries.get(countryWithHighestDeathRate).deathRate();
             }
 
         }
@@ -89,40 +77,25 @@ public class Utilities {
     }
 
     /**
-     * This method gets the highest death rate value
-     * @return Returns the highest death rate as a decimal
-     */
-    public double getHighestDeathRate(){
-        return highestDeathRate;
-    }
-
-    /**
      * This method produces the country with the highest infection rate.
-     * @return Returns the name of the country with the highest infection rate
+     * @return Returns a country object of the country with the highest infection rate
      */
-    public String CountryWithHighestInfectionRate(){
-        Set<String> keys = countries.keySet(); //Get all countries in the hashtable;
-        for (String key: keys){
-            if (countryWithHighestInfectionRate.equals("")) //Check if the highest infection rate country variable is empty
-                countryWithHighestInfectionRate = key; //Make the first country the highest for further comparison.
+    public Country CountryWithHighestInfectionRate(){
+        Country countryWithHighestInfectionRate = null;
+        for (Country country: countries.values()){
+            if (countryWithHighestInfectionRate == null) //Check if the highest infection rate country variable is empty
+                countryWithHighestInfectionRate = country; //Make the first country the highest for further comparison.
 
                 //Check if the current country has a higher infection rate that the set one and replace it if so.
-            else if (countries.get(key).deathRate() > countries.get(countryWithHighestInfectionRate).deathRate()) {
-                countryWithHighestInfectionRate = key; //Assign the name to be the country with the highest infection rate
+            else if (countries.get(country).deathRate() > countries.get(countryWithHighestInfectionRate).deathRate()) {
+                countryWithHighestInfectionRate = country; //Assign the name to be the country with the highest infection rate
 
-                //assign the value of the infection rate
-                highestDeathRate = countries.get(countryWithHighestInfectionRate).deathRate();
+
             }
 
         }
         return countryWithHighestInfectionRate;
     }
 
-    /**
-     * This method gets the highest infection rate value
-     * @return Returns the highest infection rate as a decimal
-     */
-    public double getHighestInfectionRate(){
-        return highestInfectionRate;
-    }
+
 }

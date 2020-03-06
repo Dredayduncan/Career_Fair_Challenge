@@ -44,8 +44,11 @@ public class Utilities {
             String data = infectionCases.nextLine();
             String[] row = data.split(","); //Split each row using the commas
 
+            // Create an Infection case object of date of capture, number of confirmed cases, and number of deaths.
+            InfectionCase theCase = new InfectionCase(row[0], Integer.parseInt(row[2]), Integer.parseInt(row[3]));
+            
             //add each infection case to the country they belong to.
-            countries.get(row[1]).addInfection(row[0], row[2], row[3]);
+            countries.get(row[1]).addInfection(theCase);
         }
 
     }

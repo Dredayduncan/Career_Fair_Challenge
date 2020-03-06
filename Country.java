@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Country {
 	String name;
-	ArrayList<String[]> infections;
+	ArrayList<InfectionCase> infections;
 	int population;
 	int count;
 	int deaths;
@@ -67,15 +67,12 @@ public class Country {
 
 	/**
 	 * Add a day's infection cases count to the countries list of cases and count
-	 * @param date The date
-	 * @param numConfCases The number of confirmed cases
-	 * @param deaths The number of deaths
+	 * @param infection An infection object which holds data on infection date, number of confirmed cases and deaths.
 	 */
-	public void addInfection(String date, String numConfCases, String deaths) {
-		count += Integer.parseInt(numConfCases);
-		String[] infection = {date, numConfCases, deaths};
+	public void addInfection(InfectionCase infection) {
+		count += infection.getNewConfCases();
 		infections.add(infection);
-		this.deaths += Integer.parseInt(deaths);
+		this.deaths += infection.getNewDeaths();
 	}
 	/**
 	 * Get the number of deaths caused by the virus in the country

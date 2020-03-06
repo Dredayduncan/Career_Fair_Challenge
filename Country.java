@@ -11,7 +11,7 @@ public class Country {
 	ArrayList<String[]> infections;
 	int population;
 	int count;
-
+	int deaths;
 	/**
 	 * The constructor for the Country calls that takes the countries name and poplutaion.
 	 * @param name The name of the country
@@ -22,7 +22,7 @@ public class Country {
 		this.population = population;
 		count = 0;
 		infections = new ArrayList<>();
-	
+		deaths=0;
 	}
 
 	/**
@@ -75,7 +75,14 @@ public class Country {
 		count += Integer.parseInt(numConfCases);
 		String[] infection = {date, numConfCases, deaths};
 		infections.add(infection);
-
+		this.deaths += Integer.parseInt(deaths);
 	}
-	
+	/**
+	 * Get the number of deaths caused by the virus in the country
+	 * @return the number of deaths
+	 */
+	public int getFatalityCount() {
+		return deaths;
+	}
+
 }

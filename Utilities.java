@@ -23,9 +23,28 @@ public class Utilities {
      * @throws FileNotFoundException
      */
     public Utilities(String countryData, String infectionData) throws FileNotFoundException {
+        //Read the files
         populationData = new Scanner(new File(countryData));
         infectionCases = new Scanner(new File(infectionData));
 
+        //Ignore the headers in each csv file
+        populationData.nextLine();
+        infectionCases.nextLine();
+
+        //Loop through the entire file to populate the hashtable with the respective information
+        while (populationData.hasNextLine()) {
+            String data = populationData.nextLine();
+            String[] row = data.split(",");
+            Country country = new Country(row[0], Integer.parseInt(row[2]));
+            countries.put(country.getName(), country);
+        }
+
+        while (infectionCases.hasNextLine()){
+            String data = infectionCases.nextLine();
+            String[] row = data.split(",");
+            
+
+        }
 
     }
 }

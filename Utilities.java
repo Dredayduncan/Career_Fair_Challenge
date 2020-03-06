@@ -20,7 +20,7 @@ public class Utilities {
      *
      * @param countryData Path to the csv file containing the details about countries, population, country code and year
      * @param infectionData Path to the csv file containing the details about infections each day in each country.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException Produce an error when the file indicated has not been found
      */
     public Utilities(String countryData, String infectionData) throws FileNotFoundException {
 
@@ -63,13 +63,30 @@ public class Utilities {
         for (Country country : countries.values()) {
             if (highest == null) {
                 highest = country;
-            } else {
-                if (highest.getInfectionCount() < country.getInfectionCount()) {
+            } else if (highest.getInfectionCount() < country.getInfectionCount()) {
                     highest = country;
                 }
-            }
         }
         return highest;
+    }
+
+    /**
+     *
+     * Get the country with the second highest infection count
+     * @return The country with the second highest infection count
+     */
+    public Country getSecondHighestInfection (){
+        Country Highest = null;
+        Country sHighest = null;
+        for (Country country : countries.values()) {
+            if (Highest == null) {
+                Highest = country;
+            }else if (Highest.getInfectionCount() < country.getInfectionCount()){
+                    sHighest = Highest;
+                    Highest = country;
+                }
+        }
+        return sHighest;
     }
 
     /**
@@ -85,7 +102,7 @@ public class Utilities {
                 countryWithHighestDeathRate = country; //Make the first country the highest for further comparison.
 
             //Check if the current country has a higher death rate that the set one and replace it if so.
-            else if (countries.get(country).deathRate() > countries.get(countryWithHighestDeathRate).deathRate()) {
+            else if (country.deathRate() > countryWithHighestDeathRate.deathRate()) {
                 countryWithHighestDeathRate = country; //Assign the name to be the country with the highest death rate
 
             }
@@ -94,26 +111,7 @@ public class Utilities {
         return countryWithHighestDeathRate;
 
     }
-    /**
-     *
-     * Get the country with the second highest infection count
-     * @return The country with the second highest infection count
-     */
-    public Country getSecondHighestInfection (){
-    	Country Highest = null;
-    	Country sHighest = null;
-    	for (Country country : countries.values()) {
-			if (Highest == null) {
-				Highest = country;
-			}else {
-				if (Highest.getInfectionCount() < country.getInfectionCount()){
-					sHighest = Highest;
-					Highest = country;
-				}
-			}
-		}
-    	return sHighest;
-    }
+
     /**
      *
      * This method produces the country with the highest infection rate.
@@ -126,10 +124,8 @@ public class Utilities {
                 countryWithHighestInfectionRate = country; //Make the first country the highest for further comparison.
 
                 //Check if the current country has a higher infection rate that the set one and replace it if so.
-            else if (countries.get(country).deathRate() > countries.get(countryWithHighestInfectionRate).deathRate()) {
+            else if (country.deathRate() > countryWithHighestInfectionRate.deathRate()) {
                 countryWithHighestInfectionRate = country; //Assign the name to be the country with the highest infection rate
-
-
             }
 
         }

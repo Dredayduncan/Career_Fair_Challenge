@@ -11,6 +11,8 @@ import java.util.Scanner;
 public class Utilities {
     //Store the countries by their name and Country object in a hashtable
     private Hashtable<String, Country> countries = new Hashtable<>();
+    private int count;
+    private int deaths;
 
     //Declare the variables for the input files
     Scanner populationData, infectionCases;
@@ -47,6 +49,10 @@ public class Utilities {
 
             // Create an Infection case object of date of capture, number of confirmed cases, and number of deaths.
             InfectionCase theCase = new InfectionCase(row[0], Integer.parseInt(row[2]), Integer.parseInt(row[3]));
+
+            //Accumulate the number of deaths and infections to their respective instance variables
+            count += Integer.parseInt(row[2]);
+            deaths += Integer.parseInt(row[3]);
 
             //add each infection case to the country they belong to.
             countries.get(row[1]).addInfection(theCase);
@@ -130,6 +136,10 @@ public class Utilities {
 
         }
         return countryWithHighestInfectionRate;
+    }
+
+    public double overallDeathRate(){
+        return deaths/count;
     }
 
 

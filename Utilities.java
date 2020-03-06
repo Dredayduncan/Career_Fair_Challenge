@@ -52,4 +52,41 @@ public class Utilities {
         }
 
     }
+    /**
+     * Get the country with the highest infection count
+     * @return The country with the highest infection count
+     */
+    public Country getHighestInfection() {
+    	Country highest=null;
+    	for (Country country : countries.values()) {
+			if (highest==null) {
+				highest=country;
+			}else {
+				if (highest.getInfectionCount() < country.getInfectionCount()){
+					highest = country;
+				}
+			}
+		}
+    	return highest;
+    }
+    /**
+     * Get the country with the second highest infection count
+     * @return The country with the second highest infection count
+     */
+    public Country getSecondHighestInfection() {
+    	Country Highest = null;
+    	Country sHighest = null;
+    	for (Country country : countries.values()) {
+			if (Highest == null) {
+				Highest = country;
+			}else {
+				if (Highest.getInfectionCount() < country.getInfectionCount()){
+					sHighest = Highest;
+					Highest = country;
+				}
+			}
+		}
+    	return sHighest;
+    }
 }
+

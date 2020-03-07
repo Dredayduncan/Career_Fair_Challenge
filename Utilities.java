@@ -57,11 +57,15 @@ public class Utilities {
      * @return The country with the highest infection count
      */
     public Country getHighestInfection() {
+    	// The variable to keep the country with the highest infection cases
     	Country highest=null;
+    	
     	for (Country country : countries.values()) {
+    		// The first country will be considered the highest from the start
 			if (highest==null) {
 				highest=country;
 			}else {
+				// Compare the current country and current highest country and replace the highest if the current country has a higher infection count 
 				if (highest.getInfectionCount() < country.getInfectionCount()){
 					highest = country;
 				}
@@ -74,12 +78,19 @@ public class Utilities {
      * @return The country with the second highest infection count
      */
     public Country getSecondHighestInfection() {
+    	// The variable to keep the country with the highest and second highest infection cases
     	Country Highest = null;
     	Country sHighest = null;
+    	
+    	
     	for (Country country : countries.values()) {
+    		// The first country will be considered the highest from the start
 			if (Highest == null) {
 				Highest = country;
 			}else {
+				/* Compare the current country and current highest country and replace the highest if
+				   the current country has a higher infection count and store the old highest
+				*/ 
 				if (Highest.getInfectionCount() < country.getInfectionCount()){
 					sHighest = Highest;
 					Highest = country;

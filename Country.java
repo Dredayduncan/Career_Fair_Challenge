@@ -7,11 +7,11 @@ package Career_Fair_Challenge;
 import java.util.ArrayList;
 
 public class Country {
-	String name;
+	private String name;
 	ArrayList<InfectionCase> infections = new ArrayList<>();
-	int population;
-	int count;
-	int deaths;
+	private int population;
+	private int count;
+	private int deaths;
 	/**
 	 * The constructor for the Country calls that takes the countries name and poplutaion.
 	 * @param name The name of the country
@@ -101,7 +101,7 @@ public class Country {
 	 * Get the death rate of the country
 	 * @return Returns a decimal of the ratio of deaths to infections
 	 */
-	public double deathRate() {
+	public double getDeathRate() {
 		return getFatalityCount()/getInfectionCount();
 
 	}
@@ -110,8 +110,15 @@ public class Country {
 	 * Get the infection rate of the country
 	 * @return Returns a decimal of the ratio of infections to population
 	 */
-	public double infectionRate(){
+	public double getInfectionRate(){
 		return getInfectionCount()/getPopulation();
 	}
 
+	/**
+	 * Get the infection cases recorded in the country
+	 * @return An array of infection cases recorded in the country
+	 */
+	public ArrayList<InfectionCase> getInfections() {
+		return infections;
+	}
 }

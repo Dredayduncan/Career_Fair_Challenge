@@ -6,9 +6,9 @@
 package Career_Fair_Challenge;
 
 public class InfectionCase {
-	String dateRep;
-	int newConfCases;
-	int newDeaths;
+	String dateRep; //Date the cases were reported
+	int newConfCases; //Number of newly confirmed cases
+	int newDeaths; //Number of confirmed deaths
 	/**
 	 * The constructor for the InfectionCase class with the date, the number of infections and number of deaths
 	 * @param dateRep The date of the case 

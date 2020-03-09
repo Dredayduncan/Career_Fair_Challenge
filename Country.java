@@ -13,6 +13,7 @@ public class Country {
 	private long population;
 	private int count;
 	private int deaths;
+	private int highestInfections;
 	/**
 	 * The constructor for the Country calls that takes the countries name and poplutaion.
 	 * @param name The name of the country
@@ -23,6 +24,7 @@ public class Country {
 		this.population = population;
 		count = 0;
 		deaths=0;
+		highestInfections=-1;
 	}
 
 	/**
@@ -88,7 +90,13 @@ public class Country {
 	public void addInfection(InfectionCase infection) {
 		count += infection.getNewConfCases();
 		infections.add(infection);
+		if (highestInfections==-1) highestInfections=0;
+		if (infections.get(highestInfections).getNewConfCases()<infection.getNewConfCases()) {
+			highestInfections=infections.size()-1;
+		}
 		this.deaths += infection.getNewDeaths();
+		
+		
 	}
 	/**
 	 * Get the number of deaths caused by the virus in the country
@@ -122,32 +130,39 @@ public class Country {
 	public ArrayList<InfectionCase> getInfections() {
 		return infections;
 	}
-	
+	/**
+	 * Return the standard deviation of a set of integer values
+	 * @param values a set of integer values
+	 * @return The standard deviation of the set of integer values
+	 */
 	private double STD(int[] values) {
 		int squaredsum =0;
 		int sum = 0;
 		for (int i : values) {
 			squaredsum+= i*i;
-			sum+=i;
+			sum+= i;
 		}
-		if(squaredsum ==0)
-			return 0;
+	
 		return Math.sqrt(squaredsum/values.length - Math.pow(sum/values.length,2));
 		
 	}
+	/**
+	 * Return the correlation co-efficient for the last week of infections
+	 * @return the correlation co-efficient
+	 */
 	public double getCorrelation() {
 		if (this.infections.size()>0) {
 			int[] val1;
 			int[] val2;
 			if (this.infections.size()>6) {
 				val1 = new int[7];
-				val2 = new int[] {1,2,3,4,5,6,7};
+				val2 = new int[] {7,6,5,4,3,2,1};
 			}else {
 				val1 = new int[this.infections.size()];
 				val2 = new int[this.infections.size()];
 				for (int i = 0; i < val2.length; i++) {
 					val2[i] = i;
-				}
+				 }
 			}
 			
 			int c =0;
@@ -161,21 +176,27 @@ public class Country {
 			if (sum1==0) {
 				return 0;
 			}
-			double mean1 =sum1/val1.length;
+			double mean1 =this.getInfectionCount()/this.infections.size();
 			double mean2 =4;
 			double s1 = STD(val1);
 			double s2 = STD(val2);
+			
 			if(s1==0)
 				return 0;
 			int sum =0;
 			for (int i = 0; i < val1.length ; i++) {
-				sum +=(val1[i]-mean1)*(val2[i]-mean2);
-				
+				sum +=(val1[i]-mean1)*(val2[i]-mean2);	
 			}
 			return sum/((val1.length-1)*(s1*s2));
 		}
 		return 0;
 	}
-	
-	
+	/**
+	 * Return the index of the infection case that has the highest infections in a single day
+	 * @return the index of the highest infection case count
+	 */
+	public int getHighestInfections() {
+		return highestInfections;
+	}
+
 }

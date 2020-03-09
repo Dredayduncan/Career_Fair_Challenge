@@ -166,7 +166,10 @@ public class Utilities {
     public Hashtable<String, Country> getCountries(){
         return countries;
     }
-
+    /**
+     * Return all countries that have increasing infections trends
+     * @return ArrayList of all countries with increasing infection trends
+     */
     public ArrayList<Country> getOnTheRise(){
     	ArrayList<Country> coun = new ArrayList<Country>();
     	for (Country country : countries.values()) {
@@ -176,6 +179,10 @@ public class Utilities {
 		}
     	return coun;
     }
+    /**
+     * Return all countries that have decreasing infections trends
+     * @return ArrayList of all countries with decreasing infection trends
+     */
     public ArrayList<Country> getOnTheFall(){
     	ArrayList<Country> coun = new ArrayList<Country>();
     	for (Country country : countries.values()) {
@@ -185,9 +192,58 @@ public class Utilities {
 		}
     	return coun;
     }
-
-
-
-
+    /**
+     * Return the country with the steepest increase
+     * @return the country with the steepest increase
+     */
+    public Country getSteepestRise() {
+    	Country c = null;
+    	
+    	for (Country coun : this.getOnTheRise()) {
+			if (c==null) {
+				c = coun;
+			}
+			if (c.getCorrelation()<coun.getCorrelation()) {
+				c =coun;
+			}
+		}
+    	return c;
+    }
+    /**
+     * Return the country with the steepest decrease
+     * @return the country with the steepest decrease
+     */
+    public Country getSteepestFall() {
+    	Country c = null;
+    	for (Country coun : this.getOnTheFall
+    			()) {
+			if (c==null) {
+				c = coun;
+			}
+			if (c.getCorrelation()>coun.getCorrelation()) {
+				c =coun;
+			}
+		}
+    	return c;
+    }
+    /**
+     * Return the country that has the earliest peak of all the countries that have decreasing infections
+     * @return The country with the earliest peak
+     */
+    public Country getEarliestPeak() {
+    	Country coun = null;
+    	for (Country c : this.getOnTheFall()) {
+    		if (c.getHighestInfections()!=-1) {
+				if (coun == null) {
+					coun =c;
+				}
+				else {
+					if (c.getHighestInfections()>coun.getHighestInfections())
+						coun=c;
+				}
+	    	}
+		}
+    	return coun;
+    }
 }
 

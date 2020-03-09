@@ -5,6 +5,7 @@ package Career_Fair_Challenge;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Scanner;
 
@@ -38,7 +39,8 @@ public class Utilities {
         while (populationData.hasNextLine()) {
             String data = populationData.nextLine();
             String[] row = data.split(","); //Split each row using the commas
-            Country country = new Country(row[0], Integer.parseInt(row[2]));
+            
+            Country country = new Country(row[0], Long.parseLong(row[2]));
             countries.put(country.getName(), country);
         }
 
@@ -53,10 +55,11 @@ public class Utilities {
             //Accumulate the number of deaths and infections to their respective instance variables
             count += Integer.parseInt(row[2]);
             deaths += Integer.parseInt(row[3]);
-
+            
             //add each infection case to the country they belong to.
-            countries.get(row[1]).addInfection(theCase);
-        }
+            if (countries.get(row[1])!=null) 
+            	countries.get(row[1]).addInfection(theCase);
+            }
 
     }
     /**
@@ -164,7 +167,24 @@ public class Utilities {
         return countries;
     }
 
-
+    public ArrayList<Country> getOnTheRise(){
+    	ArrayList<Country> coun = new ArrayList<Country>();
+    	for (Country country : countries.values()) {
+			if(country.getCorrelation()>0) {
+				coun.add(country);
+			}
+		}
+    	return coun;
+    }
+    public ArrayList<Country> getOnTheFall(){
+    	ArrayList<Country> coun = new ArrayList<Country>();
+    	for (Country country : countries.values()) {
+			if(country.getCorrelation()<0) {
+				coun.add(country);
+			}
+		}
+    	return coun;
+    }
 
 
 

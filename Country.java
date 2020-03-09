@@ -6,10 +6,11 @@
 package Career_Fair_Challenge;
 import java.util.ArrayList;
 
+
 public class Country {
 	private String name;
 	ArrayList<InfectionCase> infections = new ArrayList<>();
-	private int population;
+	private long population;
 	private int count;
 	private int deaths;
 	/**
@@ -17,7 +18,7 @@ public class Country {
 	 * @param name The name of the country
 	 * @param population The population of the country
 	 */
-	public Country(String name, int population) {
+	public Country(String name, long population) {
 		this.name = name;
 		this.population = population;
 		count = 0;
@@ -60,7 +61,7 @@ public class Country {
 	 * Get the population of the country
 	 * @return the population of the country
 	 */
-	public int getPopulation() {
+	public long getPopulation() {
 		return population;
 	}
 
@@ -121,4 +122,60 @@ public class Country {
 	public ArrayList<InfectionCase> getInfections() {
 		return infections;
 	}
+	
+	private double STD(int[] values) {
+		int squaredsum =0;
+		int sum = 0;
+		for (int i : values) {
+			squaredsum+= i*i;
+			sum+=i;
+		}
+		if(squaredsum ==0)
+			return 0;
+		return Math.sqrt(squaredsum/values.length - Math.pow(sum/values.length,2));
+		
+	}
+	public double getCorrelation() {
+		if (this.infections.size()>0) {
+			int[] val1;
+			int[] val2;
+			if (this.infections.size()>6) {
+				val1 = new int[7];
+				val2 = new int[] {1,2,3,4,5,6,7};
+			}else {
+				val1 = new int[this.infections.size()];
+				val2 = new int[this.infections.size()];
+				for (int i = 0; i < val2.length; i++) {
+					val2[i] = i;
+				}
+			}
+			
+			int c =0;
+			int sum1 =0;
+			for( InfectionCase i :infections.subList(0, val1.length)) {
+				val1[c]=i.getNewConfCases();
+				sum1+=i.getNewConfCases();
+				c+=1;
+			}
+			
+			if (sum1==0) {
+				return 0;
+			}
+			double mean1 =sum1/val1.length;
+			double mean2 =4;
+			double s1 = STD(val1);
+			double s2 = STD(val2);
+			if(s1==0)
+				return 0;
+			int sum =0;
+			for (int i = 0; i < val1.length ; i++) {
+				sum +=(val1[i]-mean1)*(val2[i]-mean2);
+				
+			}
+			return sum/((val1.length-1)*(s1*s2));
+		}
+		return 0;
+	}
+	
+	
 }

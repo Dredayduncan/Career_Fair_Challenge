@@ -48,6 +48,7 @@ public class SecondTask {
     }
 
 //    public String getStartDate(){
-//        int firstOccurrence = missingData.size()-1;
+//        for (InfectionCase info : found.getInfections())
+//            info.newConfCases
 //    }
 }

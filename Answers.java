@@ -9,10 +9,10 @@ import java.io.PrintWriter;
 
 public class Answers {
     public static void main(String[] args) throws FileNotFoundException {
-        Utilities soln = new Utilities("C:\\Users\\HP\\Desktop\\CFC\\src\\Career_Fair_Challenge\\population_data.csv", "C:\\Users\\HP\\Desktop\\CFC\\src\\Career_Fair_Challenge\\covid_data.csv");
+        Utilities soln = new Utilities(args[0], args[1]);
 
         //Create the file which contains all the answers
-        PrintWriter input = new PrintWriter(new File("task1_solution-population_data.txt"));
+        PrintWriter input = new PrintWriter(new File("task1_solution-"+args[1]+".txt"));
 
         //Get and write the country with the highest infection count and the count to the file.
         Country highestInfectionCount = soln.getHighestInfection();

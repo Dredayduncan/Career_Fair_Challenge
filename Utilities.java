@@ -133,8 +133,6 @@ public class Utilities {
                 countryWithHighestDeathRate = country; //Assign the name to be the country with the highest death rate
                 
             }
-            System.out.println("Highest: "+countryWithHighestDeathRate.getName()+" "+countryWithHighestDeathRate.getDeathRate()+" "+countryWithHighestDeathRate.getInfectionCount()+" "+countryWithHighestDeathRate.getFatalityCount());
-            System.out.println("Checking: "+country.getName()+" "+country.getDeathRate()+" "+country.getInfectionCount()+" "+country.getFatalityCount());
         }
         return countryWithHighestDeathRate;
 
@@ -152,7 +150,7 @@ public class Utilities {
                 countryWithHighestInfectionRate = country; //Make the first country the highest for further comparison.
 
                 //Check if the current country has a higher infection rate that the set one and replace it if so.
-            else if (country.getDeathRate() > countryWithHighestInfectionRate.getDeathRate()) {
+            else if (country.getInfectionRate() > countryWithHighestInfectionRate.getInfectionCount()) {
                 countryWithHighestInfectionRate = country; //Assign the name to be the country with the highest infection rate
             }
 
@@ -165,7 +163,8 @@ public class Utilities {
      * @return A double (decimal) of the result
      */
     public double getOverallDeathRate(){
-        return deaths/count;
+    	
+        return (double)deaths/(double)count;
     }
 
     /**

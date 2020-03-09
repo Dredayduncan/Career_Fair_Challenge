@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Country {
 	private String name;
-	ArrayList<InfectionCase> infections = new ArrayList<>();
+	private ArrayList<InfectionCase> infections = new ArrayList<>();
 	private int population;
 	private int count;
 	private int deaths;

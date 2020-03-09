@@ -25,10 +25,15 @@ public class Utilities {
      * @throws FileNotFoundException Produce an error when the file indicated has not been found
      */
     public Utilities(String countryData, String infectionData) throws FileNotFoundException {
+        try {
 
-        //Read the files
-        populationData = new Scanner(new File(countryData));
-        infectionCases = new Scanner(new File(infectionData));
+            //Read the files
+            infectionCases = new Scanner(new File(infectionData));
+            populationData = new Scanner(new File(countryData));
+
+        }catch (Exception e){
+            System.out.println("Error: " + e);
+        }
 
         //Ignore the headers in each csv file
         populationData.nextLine();

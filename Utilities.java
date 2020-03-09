@@ -5,6 +5,7 @@ package Career_Fair_Challenge;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Scanner;
 
@@ -43,7 +44,8 @@ public class Utilities {
         while (populationData.hasNextLine()) {
             String data = populationData.nextLine();
             String[] row = data.split(","); //Split each row using the commas
-            Country country = new Country(row[0], Integer.parseInt(row[2]));
+            
+            Country country = new Country(row[0], Long.parseLong(row[2]));
             countries.put(country.getName(), country);
         }
 
@@ -58,10 +60,11 @@ public class Utilities {
             //Accumulate the number of deaths and infections to their respective instance variables
             count += Integer.parseInt(row[2]);
             deaths += Integer.parseInt(row[3]);
-
+            
             //add each infection case to the country they belong to.
-            countries.get(row[1]).addInfection(theCase);
-        }
+            if (countries.get(row[1])!=null) 
+            	countries.get(row[1]).addInfection(theCase);
+            }
 
     }
     /**
@@ -96,15 +99,23 @@ public class Utilities {
         Country sHighest = null;
         for (Country country : countries.values()) {
             // The first country will be considered the highest from the start
+        	
             if (Highest == null) {
                 Highest = country;
 
                 /* Compare the current country and current highest country and replace the highest if
 				   the current country has a higher infection count and store the old highest
 				*/
-            } else if (Highest.getInfectionCount() < country.getInfectionCount()) {
+            } else if (country.getInfectionCount()>Highest.getInfectionCount()) {
                 sHighest = Highest;
                 Highest = country;
+            }// The first country smaller than the highest will be considered the second highest
+            else if(sHighest==null) {
+            	sHighest=country;
+            }/* Compare the cunCompare the current country and current highest country and replace the highest if
+			   the current country has a higher infection count*/
+            else if(country.getInfectionCount()>sHighest.getInfectionCount()) {
+            	sHighest = country;
             }
         }
         return sHighest;
@@ -125,9 +136,8 @@ public class Utilities {
             //Check if the current country has a higher death rate that the set one and replace it if so.
             else if (country.getDeathRate() > countryWithHighestDeathRate.getDeathRate()) {
                 countryWithHighestDeathRate = country; //Assign the name to be the country with the highest death rate
-
+                
             }
-
         }
         return countryWithHighestDeathRate;
 
@@ -145,7 +155,7 @@ public class Utilities {
                 countryWithHighestInfectionRate = country; //Make the first country the highest for further comparison.
 
                 //Check if the current country has a higher infection rate that the set one and replace it if so.
-            else if (country.getDeathRate() > countryWithHighestInfectionRate.getDeathRate()) {
+            else if (country.getInfectionRate() > countryWithHighestInfectionRate.getInfectionCount()) {
                 countryWithHighestInfectionRate = country; //Assign the name to be the country with the highest infection rate
             }
 
@@ -158,7 +168,8 @@ public class Utilities {
      * @return A double (decimal) of the result
      */
     public double getOverallDeathRate(){
-        return deaths/count;
+    	
+        return (double)deaths/(double)count;
     }
 
     /**
@@ -168,11 +179,84 @@ public class Utilities {
     public Hashtable<String, Country> getCountries(){
         return countries;
     }
-
-
-
-
-
-
+    /**
+     * Return all countries that have increasing infections trends
+     * @return ArrayList of all countries with increasing infection trends
+     */
+    public ArrayList<Country> getOnTheRise(){
+    	ArrayList<Country> coun = new ArrayList<Country>();
+    	for (Country country : countries.values()) {
+			if(country.getCorrelation()>0) {
+				coun.add(country);
+			}
+		}
+    	return coun;
+    }
+    /**
+     * Return all countries that have decreasing infections trends
+     * @return ArrayList of all countries with decreasing infection trends
+     */
+    public ArrayList<Country> getOnTheFall(){
+    	ArrayList<Country> coun = new ArrayList<Country>();
+    	for (Country country : countries.values()) {
+			if(country.getCorrelation()<0) {
+				coun.add(country);
+			}
+		}
+    	return coun;
+    }
+    /**
+     * Return the country with the steepest increase
+     * @return the country with the steepest increase
+     */
+    public Country getSteepestRise() {
+    	Country c = null;
+    	
+    	for (Country coun : this.getOnTheRise()) {
+			if (c==null) {
+				c = coun;
+			}
+			if (c.getCorrelation()<coun.getCorrelation()) {
+				c =coun;
+			}
+		}
+    	return c;
+    }
+    /**
+     * Return the country with the steepest decrease
+     * @return the country with the steepest decrease
+     */
+    public Country getSteepestFall() {
+    	Country c = null;
+    	for (Country coun : this.getOnTheFall
+    			()) {
+			if (c==null) {
+				c = coun;
+			}
+			if (c.getCorrelation()>coun.getCorrelation()) {
+				c =coun;
+			}
+		}
+    	return c;
+    }
+    /**
+     * Return the country that has the earliest peak of all the countries that have decreasing infections
+     * @return The country with the earliest peak
+     */
+    public Country getEarliestPeak() {
+    	Country coun = null;
+    	for (Country c : this.getOnTheFall()) {
+    		if (c.getHighestInfections()!=-1) {
+				if (coun == null) {
+					coun =c;
+				}
+				else {
+					if (c.getHighestInfections()>coun.getHighestInfections())
+						coun=c;
+				}
+	    	}
+		}
+    	return coun;
+    }
 }
 

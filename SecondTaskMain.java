@@ -1,3 +1,6 @@
+/**
+ * @author Andrew Duncan
+ */
 package Career_Fair_Challenge;
 
 import java.io.FileNotFoundException;

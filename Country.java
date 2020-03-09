@@ -111,7 +111,12 @@ public class Country {
 	 * @return Returns a decimal of the ratio of deaths to infections
 	 */
 	public double getDeathRate() {
-		return getFatalityCount()/getInfectionCount();
+		double f = getFatalityCount();
+		double i =getInfectionCount();
+		if (getInfectionCount()==0)
+			return 0;
+		
+		return f/i;
 
 	}
 

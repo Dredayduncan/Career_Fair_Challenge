@@ -94,15 +94,23 @@ public class Utilities {
         Country sHighest = null;
         for (Country country : countries.values()) {
             // The first country will be considered the highest from the start
+        	
             if (Highest == null) {
                 Highest = country;
 
                 /* Compare the current country and current highest country and replace the highest if
 				   the current country has a higher infection count and store the old highest
 				*/
-            } else if (Highest.getInfectionCount() < country.getInfectionCount()) {
+            } else if (country.getInfectionCount()>Highest.getInfectionCount()) {
                 sHighest = Highest;
                 Highest = country;
+            }// The first country smaller than the highest will be considered the second highest
+            else if(sHighest==null) {
+            	sHighest=country;
+            }/* Compare the cunCompare the current country and current highest country and replace the highest if
+			   the current country has a higher infection count*/
+            else if(country.getInfectionCount()>sHighest.getInfectionCount()) {
+            	sHighest = country;
             }
         }
         return sHighest;
@@ -123,9 +131,10 @@ public class Utilities {
             //Check if the current country has a higher death rate that the set one and replace it if so.
             else if (country.getDeathRate() > countryWithHighestDeathRate.getDeathRate()) {
                 countryWithHighestDeathRate = country; //Assign the name to be the country with the highest death rate
-
+                
             }
-
+            System.out.println("Highest: "+countryWithHighestDeathRate.getName()+" "+countryWithHighestDeathRate.getDeathRate()+" "+countryWithHighestDeathRate.getInfectionCount()+" "+countryWithHighestDeathRate.getFatalityCount());
+            System.out.println("Checking: "+country.getName()+" "+country.getDeathRate()+" "+country.getInfectionCount()+" "+country.getFatalityCount());
         }
         return countryWithHighestDeathRate;
 

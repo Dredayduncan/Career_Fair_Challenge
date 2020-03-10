@@ -31,7 +31,6 @@ public class SecondTask {
 
         //Store the data from the partialTimeSeries file into an Integer array
         Scanner input = new Scanner(new File(partialTimeSeries));
-        missingData.add(0);
         input.nextLine();
 
         while (input.hasNextLine()){

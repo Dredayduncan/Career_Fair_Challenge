@@ -47,12 +47,11 @@ public class SecondTask {
     private void traceCountryOfData(){
         for (Country country: data.getCountries().values()){
 
-            if (Arrays.asList(country.getInfections()).containsAll(Arrays.asList(missingData))){
+            if (country.getAllConfCases().containsAll(missingData)){
                 found = country;
-                System.out.println("FOUND");
                 break;
             }
-        }
+        };
     }
 
     /**
@@ -60,7 +59,7 @@ public class SecondTask {
      * missing data.
      * @return A string
      */
-    public String identifyCountry(){
+    public String[] identifyCountry(){
         //Get the last index which is the first occurrence of the in the partTimeSeries file.
         int indexOfStartDate = missingData.size()-1;
         traceCountryOfData(); //Get the country the data belongs to.
@@ -72,7 +71,10 @@ public class SecondTask {
         indexOfStartDate += identifiedConfCases.indexOf(missedConfCases);
 
         //Get the country and date of the first occurrence in the partTimeSeries file
-        return found.getName() + ", " + found.getInfections().get(indexOfStartDate).getDateRep();
+        String[] result = new String[2];
+        result[0] = found.getName();
+        result[1] = found.getInfections().get(indexOfStartDate).getDateRep();
+        return result;
     }
 
     /**
@@ -95,11 +97,10 @@ public class SecondTask {
      */
     private String setFoundCases(){
         String foundCases = ""; //Variable to hold the number of cases reported in the identified country as one string.
-//        System.out.println(found.getName());
+
         //Add the number values to the string as one.
-        for (InfectionCase theCase: found.getInfections()){
-            System.out.println(theCase.getNewConfCases());
-            foundCases += String.valueOf(theCase.getNewConfCases());
+        for (Integer theCase: found.getAllConfCases()){
+            foundCases += String.valueOf(theCase);
         }
 
         return foundCases;

@@ -202,4 +202,17 @@ public class Country {
 		return highestInfections;
 	}
 
+	/**
+	 *
+	 * @return An Array of confirmed cases on each day
+	 */
+	public ArrayList<Integer> getAllConfCases(){
+		ArrayList<Integer> nums = new ArrayList<>();
+		for (InfectionCase infection: infections)
+			nums.add(infection.getNewConfCases());
+
+		return nums;
+
+	}
+
 }

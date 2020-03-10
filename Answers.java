@@ -12,7 +12,7 @@ public class Answers {
         Utilities soln = new Utilities(args[0], args[1]);
 
         //Create the file which contains all the answers
-        PrintWriter input = new PrintWriter(new File("task1_solution-"+args[1]+".txt"));
+        PrintWriter input = new PrintWriter(new File("task1_solution-"+args[0]+".txt"));
 
         //Get and write the country with the highest infection count and the count to the file.
         Country highestInfectionCount = soln.getHighestInfection();
@@ -53,7 +53,7 @@ public class Answers {
         
         //Get and write the country with the earliest peak infections in a day to a file
         Country peak =soln.getEarliestPeak();
-        input.println("g) "+peak.getName()+", "+peak.getInfections().get(peak.getHighestInfections()).getNewConfCases());
+        input.println("j) "+peak.getName()+", "+peak.getInfections().get(peak.getHighestInfections()).getNewConfCases());
         input.close();
     }
 }

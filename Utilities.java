@@ -25,7 +25,7 @@ public class Utilities {
      * @param infectionData Path to the csv file containing the details about infections each day in each country.
      * @throws FileNotFoundException Produce an error when the file indicated has not been found
      */
-    public Utilities(String countryData, String infectionData) throws FileNotFoundException {
+    public Utilities(String infectionData, String countryData) throws FileNotFoundException {
         try {
 
             //Read the files

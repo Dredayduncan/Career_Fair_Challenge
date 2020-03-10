@@ -26,15 +26,17 @@ public class SecondTask {
         missingData = new ArrayList<>();
         found = null;
 
-
         //instantiate the utilities class to generate the data
-        data = new Utilities("population_data.csv", covidData);
+        data = new Utilities(covidData, "population_data.csv");
 
         //Store the data from the partialTimeSeries file into an Integer array
         Scanner input = new Scanner(new File(partialTimeSeries));
+        missingData.add(0);
+        input.nextLine();
+
         while (input.hasNextLine()){
-            Integer value = Integer.parseInt(input.nextLine());
-            missingData.add(value);
+            String value = input.nextLine();
+            missingData.add(Integer.parseInt(value));
         }
     }
 
@@ -42,13 +44,15 @@ public class SecondTask {
      * A method to get the country which the information held in the partTimeSeries file.
      * @return The country which been identified to bear the data in the partTimeSeries file as a Country object.
      */
-    private Country traceCountryOfData(){
+    private void traceCountryOfData(){
         for (Country country: data.getCountries().values()){
+
             if (Arrays.asList(country.getInfections()).containsAll(Arrays.asList(missingData))){
                 found = country;
+                System.out.println("FOUND");
+                break;
             }
         }
-        return found;
     }
 
     /**
@@ -59,7 +63,7 @@ public class SecondTask {
     public String identifyCountry(){
         //Get the last index which is the first occurrence of the in the partTimeSeries file.
         int indexOfStartDate = missingData.size()-1;
-        Country country = traceCountryOfData(); //Get the country the data belongs to.
+        traceCountryOfData(); //Get the country the data belongs to.
 
         String missedConfCases = setMissingCases(); //Combine all the values of the partTimeSeries file into one string
         String identifiedConfCases = setFoundCases(); //Combine all the values of the confirmed cases in the identified country into one string.
@@ -68,7 +72,7 @@ public class SecondTask {
         indexOfStartDate += identifiedConfCases.indexOf(missedConfCases);
 
         //Get the country and date of the first occurrence in the partTimeSeries file
-        return country.getName() + ", " + country.getInfections().get(indexOfStartDate).getDateRep();
+        return found.getName() + ", " + found.getInfections().get(indexOfStartDate).getDateRep();
     }
 
     /**
@@ -91,9 +95,10 @@ public class SecondTask {
      */
     private String setFoundCases(){
         String foundCases = ""; //Variable to hold the number of cases reported in the identified country as one string.
-
+//        System.out.println(found.getName());
         //Add the number values to the string as one.
         for (InfectionCase theCase: found.getInfections()){
+            System.out.println(theCase.getNewConfCases());
             foundCases += String.valueOf(theCase.getNewConfCases());
         }
 
